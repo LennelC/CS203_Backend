@@ -1,6 +1,6 @@
-/Users/lennelcjj/Downloads/Account-MS/src/main/java/csd/backend/Account/MS/AccountMsApplication.java
-/Users/lennelcjj/Downloads/Account-MS/src/main/java/csd/backend/Account/MS/Controller/ContentController.java
-/Users/lennelcjj/Downloads/Account-MS/src/main/java/csd/backend/Account/MS/Model/AppUser.java
-/Users/lennelcjj/Downloads/Account-MS/src/main/java/csd/backend/Account/MS/Model/AppUserRepository.java
-/Users/lennelcjj/Downloads/Account-MS/src/main/java/csd/backend/Account/MS/Model/AppUserService.java
-/Users/lennelcjj/Downloads/Account-MS/src/main/java/csd/backend/Account/MS/Security/SecurityConfig.java
+/Users/lennelcjj/SMU/Y2S1/CS203/Project/CS203_Backend/main/Account MS/Account-MS/src/main/java/csd/backend/Account/MS/AccountMsApplication.java
+/Users/lennelcjj/SMU/Y2S1/CS203/Project/CS203_Backend/main/Account MS/Account-MS/src/main/java/csd/backend/Account/MS/Controller/ContentController.java
+/Users/lennelcjj/SMU/Y2S1/CS203/Project/CS203_Backend/main/Account MS/Account-MS/src/main/java/csd/backend/Account/MS/Model/AppUser.java
+/Users/lennelcjj/SMU/Y2S1/CS203/Project/CS203_Backend/main/Account MS/Account-MS/src/main/java/csd/backend/Account/MS/Model/AppUserRepository.java
+/Users/lennelcjj/SMU/Y2S1/CS203/Project/CS203_Backend/main/Account MS/Account-MS/src/main/java/csd/backend/Account/MS/Model/AppUserService.java
+/Users/lennelcjj/SMU/Y2S1/CS203/Project/CS203_Backend/main/Account MS/Account-MS/src/main/java/csd/backend/Account/MS/Security/SecurityConfig.java

@@ -3,7 +3,6 @@ package csd.backend.Account.MS.Controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -54,16 +53,10 @@ public class ContentController {
         return "index";
     }
 
-    // @PostMapping("/req/signup")
-    // public String registerUser(@ModelAttribute AppUser user){
-    //     userService.registerUser(user);
-    //     return "redirect:/login?registerSuccess";
-    // }
-
     @PostMapping(value = "/req/signup", consumes = "application/json")
     public String createUser(@RequestBody AppUser user){
         userService.registerUser(user);
-        return "redirect:/login?registerSuccess";
+        return "redirect:/req/login?registerSuccess";
     }
     
 

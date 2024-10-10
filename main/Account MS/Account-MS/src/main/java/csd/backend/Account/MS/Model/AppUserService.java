@@ -11,10 +11,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class AppUserService implements UserDetailsService {
 
-    @Autowired
+    @Autowired 
     private AppUserRepository userRepository;
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -25,7 +27,6 @@ public class AppUserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
         Optional<AppUser> user = userRepository.findByEmail(email);
         if (user.isPresent()) {
             var userObj = user.get();
@@ -44,6 +45,7 @@ public class AppUserService implements UserDetailsService {
         userRepository.save(user);
     }
 
+    @Transactional
     public void processOAuthLogin(OAuth2User oAuth2User) {
         String email = oAuth2User.getAttribute("email");
         AppUser user = userRepository.findByEmail(email).orElse(null);

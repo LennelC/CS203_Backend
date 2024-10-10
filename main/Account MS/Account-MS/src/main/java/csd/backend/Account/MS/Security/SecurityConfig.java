@@ -8,34 +8,30 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import csd.backend.Account.MS.Model.AppUserService;
 
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
     @Autowired
-    private final AppUserService appUserService;
+    private final AppUserService userService;
 
 
-    public SecurityConfig(AppUserService appUserService) {
-        this.appUserService = appUserService;
+    public SecurityConfig(AppUserService userService) {
+        this.userService = userService;
     }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return appUserService;
-    }
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(appUserService);
+        provider.setUserDetailsService(userService);
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
@@ -47,26 +43,31 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
-        return httpSecurity
+        httpSecurity
             .csrf(AbstractHttpConfigurer::disable)
-            .formLogin(httpForm ->{
-                httpForm.loginPage("/req/login").permitAll();
-                httpForm.defaultSuccessUrl("/index");  
-            })
-            .oauth2Login(oauth2 -> {
-                oauth2.loginPage("/req/login");
-                oauth2.defaultSuccessUrl("/index");
-            })
-            .logout(logout -> {
-                logout.logoutUrl("/logout");
-                logout.logoutSuccessUrl("/login?logout=true").permitAll();
-            })
-    
-            
-            .authorizeHttpRequests(registry ->{
-                registry.requestMatchers("/req/signup","/css/**","/js/**").permitAll();
-                registry.anyRequest().authenticated();
-            })
-            .build();
+            .authorizeHttpRequests(authorize -> authorize
+                .requestMatchers("/req/login","/req/signup","/css/**","/js/**").permitAll()
+                .anyRequest().authenticated()
+            )
+            .formLogin(form -> form
+                .loginPage("/req/login")
+                .loginProcessingUrl("/req/login")
+                .defaultSuccessUrl("/index", true)
+                .failureUrl("/login?error=true")
+                .permitAll()
+            )
+            .oauth2Login(oauth2 -> oauth2
+                .loginPage("/req/login")
+                .defaultSuccessUrl("/index", true)
+                .failureUrl("/login?error=true")
+            )
+            .logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/req/login?logout=true")
+                .permitAll()
+            )
+            .userDetailsService(userService);
+
+            return httpSecurity.build();
     }
 }
