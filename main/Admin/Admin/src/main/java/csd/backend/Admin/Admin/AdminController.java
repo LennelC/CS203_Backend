@@ -1,12 +1,14 @@
-package csd.backend.Admin.Admin.controller;
+package csd.backend.Admin.Admin;
 
+// import org.hibernate.mapping.List;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import csd.backend.Admin.Admin.model.User;
-import csd.backend.Admin.Admin.service.AdminService;
+import csd.backend.Admin.Admin.User;
+import csd.backend.Admin.Admin.AdminService;
 
 @RestController
 @RequestMapping("/admin")
@@ -16,11 +18,22 @@ public class AdminController {
     private AdminService adminService;
 
     // Endpoint to add a new user
+    // @PostMapping("/users")
+    // public ResponseEntity<User> addUser(@RequestParam String username,
+    // @RequestParam String password,
+    // @RequestParam Boolean isAdmin) {
+    // User newUser = adminService.addUser(username, password, isAdmin);
+    // return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+    // }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = adminService.getAllUsers(); 
+        return ResponseEntity.ok(users);
+    }
     @PostMapping("/users")
-    public ResponseEntity<User> addUser(@RequestParam String username, 
-                                        @RequestParam String password, 
-                                        @RequestParam Boolean isAdmin) {
-        User newUser = adminService.addUser(username, password, isAdmin);
+    public ResponseEntity<User> addUser(@RequestBody User user) {
+        User newUser = adminService.addUser(user.getUsername(), user.getPassword(), user.getIsAdmin());
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 
