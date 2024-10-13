@@ -52,13 +52,13 @@ public class SecurityConfig {
             .formLogin(form -> form
                 .loginPage("/req/login")
                 .loginProcessingUrl("/req/login")
-                .defaultSuccessUrl("/index", true)
+                .defaultSuccessUrl("/dashboard", true)
                 .failureUrl("/login?error=true")
                 .permitAll()
             )
             .oauth2Login(oauth2 -> oauth2
                 .loginPage("/req/login")
-                .defaultSuccessUrl("/index", true)
+                .defaultSuccessUrl("/dashboard", true)
                 .failureUrl("/login?error=true")
             )
             .logout(logout -> logout
