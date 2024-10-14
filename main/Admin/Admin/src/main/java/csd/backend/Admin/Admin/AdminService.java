@@ -20,7 +20,6 @@ public class AdminService {
     }
 
     public User addUser(String username, String password, Boolean isAdmin) {
-        // You can add validation here, like checking if the user already exists
         User newUser = new User(username, password, isAdmin);
         return userRepository.save(newUser);
     }
