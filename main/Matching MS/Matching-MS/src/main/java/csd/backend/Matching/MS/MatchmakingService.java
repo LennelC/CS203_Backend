@@ -9,9 +9,7 @@ import software.amazon.awssdk.services.dynamodb.model.*;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class MatchmakingService {
@@ -24,7 +22,7 @@ public class MatchmakingService {
 
     private static final String PLAYERS_TABLE = "Players";
     private static final String MATCHES_TABLE = "Matches";
-    private static final String SQS_QUEUE_URL = "https://sqs.us-east-1.amazonaws.com/YOUR_ACCOUNT_ID/your-queue";
+    private static final String SQS_QUEUE_URL = "https://sqs.ap-southeast-1.amazonaws.com/908027379110/Message_Bus.fifo";
     private static final int MAX_PLAYERS = 8;
 
     private static final Logger logger = LoggerFactory.getLogger(MatchmakingService.class);
